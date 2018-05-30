@@ -1,0 +1,84 @@
+.row
+
+	.col-md-4
+		.img-thumbnail= image_tag "/#{@ouvrage.title}.jpg", alt: "Couverture", :width => "275", :height => "auto"
+
+	.col-md-4
+		.description-bloc.cadre
+			.li
+				%u Titre: 
+				= @ouvrage.title
+			.li
+				%u Auteur:
+				= @ouvrage.author
+			.li
+				%u Editeur:
+				= @ouvrage.editor
+			.li
+				%u Date de Publication:
+				= @ouvrage.release_date
+			.li
+				%u Genre(s):
+				= @ouvrage.genre
+			-if user_signed_in?
+				.li
+					%u Tome(s) Disponible(s):
+					.li
+						- for n in (@ouvrage.begin..@ouvrage.final) do
+							-if @missing == "-"
+								= link_to n, borrows_ouvrage_path(@ouvrage, tome: n), method: :post
+							-else
+								-if @tab[n] == true
+									= link_to n, borrows_ouvrage_path(@ouvrage, tome: n), method: :post
+					%u.li NB Emprunt:
+					=@user.current_borrows
+
+			- else
+				.li
+					%u Tome(s) Disponible(s):
+					.li
+						- for n in (@ouvrage.begin..@ouvrage.final) do
+							-if @missing == "-"
+								= n
+							-else
+								-if @tab[n] == true
+									= n
+			.li
+				= rating_for @ouvrage, 'note', disable_after_rate: true,enable_half: true, half_show: true, cancel: true
+
+
+
+.cadre
+	%h3
+		Synopsis
+	%p
+		= @ouvrage.synopsis
+
+-if user_signed_in?
+	%h3
+		Nouveau Commentaire
+	%p
+		= form_for [@ouvrage, Commentary.new] do |f|
+			= f.text_area :texte, size: "60x15"
+			= f.submit "Publier"
+
+%h3
+	Commentaires
+%table.table.cadre
+	%thead
+		%td
+			Pseudo
+		%td
+			Texte
+	%tbody
+		- @comments.each do |comment|
+			%tr
+				%td
+					- if User.find(comment.user_id).pseudo == nil
+						Utilisateur Anonyme
+					- else
+						= User.find(comment.user_id).pseudo
+				%td
+					.col-md-8
+						= comment.texte
+=will_paginate @comments

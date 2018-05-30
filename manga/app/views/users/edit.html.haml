@@ -1,0 +1,23 @@
+.cadre
+
+	%h3
+		Mettre à jour vos données
+
+	= form_for current_user, method: :put do |f|
+		.field
+			= f.label "Prénom"
+			= f.text_field :name
+		.field
+			= f.label "Nom"
+			= f.text_field :surname
+		.field
+			= f.label "Pseudo"
+			= f.text_field :pseudo
+		.field
+			= f.label "Filière"
+			= f.text_field :course
+		.field
+			= f.label "Promotion"
+			= f.text_field :year
+		.actions
+			= f.submit "Confirmer"

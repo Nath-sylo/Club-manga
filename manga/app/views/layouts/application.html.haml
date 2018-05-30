@@ -1,0 +1,46 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Club Manga
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    .table
+      .navbar.navbar-inverse
+        .container.navbar-header
+          %h3
+            .white Club Manga TPS
+            %a.btn.btn-lg.btn-default{:href => "/", :role => "button"} Home
+            %a.btn.btn-lg.btn-default{:href => "/ouvrages#index", :role => "button"} Liste de Manga
+            
+            %a.btn.btn-lg.btn-default{:href => "/ouvrages/#{rand(Ouvrage.last.id)}", :role => "button"} Random
+
+            -if user_signed_in?
+              %a.btn.btn-lg.btn-default{:href => "/users/#{Ouvrage.find(current_user).id}", :role => "button"} Profil
+
+              -if current_user.try(:admin?)
+                %a.btn.btn-lg.btn-default{:href => "/liste", :role => "button"} Inscrits
+
+              .btn.btn-lg.btn-default
+                =link_to "Sign_out",destroy_user_session_path, :method => 'delete'
+
+            -else
+              %a.btn.btn-lg.btn-default{:href => "/users/sign_up", :role => "button"} S'inscrire
+
+              %a.btn.btn-lg.btn-default{:href => "/users/sign_in", :role => "buttoin"} Se connecter
+
+
+
+    .container
+      -if user_signed_in?
+        %h4
+          = "Hello, " + current_user.email
+
+      = yield
+
+    .text-center
+      .panel-footer
+        %a{:href => "#"}
+          %p Back to Top, Feignasse de la mollette

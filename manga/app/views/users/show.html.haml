@@ -1,0 +1,31 @@
+.row.cadre
+	.col-md-4
+		.decription-bloc.p
+			.li
+				%u Email:
+				= current_user.email
+			.li
+				%u Number of Borrows:
+				= current_user.current_borrows
+			.li
+				%u Emprunt 1:
+				- if current_user.borrow1 != ""
+					- n = 1
+					= link_to current_user.borrow1, del1_user_path(), method: :post
+			.li
+				%u Emprunt 2:
+				- if current_user.borrow2 != ""
+					- n = 2
+					= link_to current_user.borrow2, del2_user_path(), method: :post
+			.li
+				%u Emprunt 3:
+				- if current_user.borrow3 != ""
+					- n = 3
+					= link_to current_user.borrow3, del3_user_path(), method: :post
+			.li
+				%u Pseudonyme:
+				= current_user.pseudo
+			.li
+				= link_to "Changer de mot de passe", edit_user_registration_path
+			.li
+				= link_to "Modifier vos données", user_edit_path

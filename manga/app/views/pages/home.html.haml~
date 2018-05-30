@@ -1,0 +1,38 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h1 Accueil
+    
+    %h3 Bienvenue sur le site du Club Manga Télécom Physique Strasbourg
+    
+    %meta{:charset => "utf-8"}/
+    
+    %title Club Manga TPS
+    
+    %h3 Manga de l'instant
+    .col-md-4
+    .description-bloc.p
+    .li
+    %u Titre:
+    = Ouvrage.find(@moment).title
+    .li
+    %u Auteur:
+    = Ouvrage.find(@moment).author
+    .li
+    %u Date de Publication:
+    = Ouvrage.find(@moment).author
+    .li
+    %u Genre(s):
+    = Ouvrage.find(@moment).genre
+    .li
+    %p
+    .red Synopsis
+    = Ouvrage.find(@moment).synopsis[0..50] + "..."
+    %a{:href => "/ouvrages/#{@moment}"} Lire la suite
+    .col-md-4
+    .img-thumbnail= image_tag "/#{Ouvrage.find(@moment).title}.jpg", alt: "Couverture", :width => "275", :height => "auto"
+    
+
+    

@@ -1,0 +1,53 @@
+-if current_user.try(:admin?)
+	.row
+		.col-xs-9-
+			.panel-title
+				%h2 Annuaire
+
+			%table.table.bg-success
+				%thead
+
+					%td
+						= sort_link_helper "Name", "name"
+					%td
+						= sort_link_helper "Surname", "surname"
+					%td
+						= sort_link_helper "Pseudonyme", "pseudo"
+					%td
+						= sort_link_helper "Email", "email"
+					%td
+						Link
+					%td
+						Rights
+					%td
+						Kick
+
+				%tbody
+					- @users.each do |user|
+						%tr
+							%td
+								= user.name
+							%td
+								= user.surname
+							%td
+								= user.pseudo
+							%td
+								= user.email
+							%td
+								%a{:href => "/users/#{user.id}"}
+									.black Consulter le profil
+							%td
+								-if user.try(:admin?)
+									-if user.email != "club.manga.tps@gmail.com"
+										.black Admin
+										.red Remove Admin status
+									-else
+										.black God
+								-else
+									.black User
+									.green Grant Admin status
+							%td
+								-if user.email != "club.manga.tps@gmail.com"
+
+									.red Kick account
+				= will_paginate @users

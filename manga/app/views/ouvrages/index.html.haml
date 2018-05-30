@@ -1,0 +1,54 @@
+.row
+	.col-xs-9-
+
+		%h2
+			Recherche
+
+		= form_tag ouvrages_path, :method => 'get' do
+			%p
+				= text_field_tag :search, params[:search]
+				= submit_tag "Search", :name => nil
+
+		%h2 Bibliothèque
+
+		%table.table.cadre
+			%thead
+
+				%td
+					Couverture
+				%td
+					= sort_link_helper "Titre", "title"
+				%td
+					= sort_link_helper "Auteur", "author"
+				%td
+					= sort_link_helper "Editeur", "editor"
+				%td
+					= sort_link_helper "Date", "date"
+				%td
+					= sort_link_helper "Genre", "genre"
+				%td
+					Synopsis
+				%td
+					Lien
+
+			%tbody
+				- @ouvrages.each do |ouvrage|
+					%tr
+						%td
+							= image_tag "/#{ouvrage.title}.jpg", alt: "Couverture", :width => "auto", :height => "100"
+						%td
+							= ouvrage.title
+						%td
+							= ouvrage.author
+						%td
+							= ouvrage.editor
+						%td
+							= ouvrage.release_date
+						%td 
+							= ouvrage.genre
+						%td
+							= ouvrage.synopsis[0..199] +"..."
+						%td
+							%a{:href => "/ouvrages/#{ouvrage.id}"}
+								.black Voir le manga
+			= will_paginate @ouvrages

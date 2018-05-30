@@ -1,0 +1,68 @@
+== README
+
+================ Ruby version : 2.3.0
+
+================ Setup process :
+	
+	In the console, go to the root folder of the application.
+	
+	Once there, to initiate the database, execute the shell script 'majbdd.sh'.
+	
+	Then execute the command 'rails server' to launch the app.
+	
+================ The database :
+
+	There are 3 tables in the database : users | ouvrages | commentaries
+	
+	The ouvrages table is initialized with the shell script majbdd.sh executed during the setup.
+	
+	The users and commentaries tables are initially empty and are dynamically filled (with registrations and comments on series)
+	
+	The user table is initialized with an admin account.
+	
+	The commentaries table is currently unused, as the add comment function is unoperationnal.
+	
+	 - ouvrages table :
+	 	the table is composed of a title, a synopsis, the number of the first and final tome possessed, the list of missing tomes, the author, the editor, the release date, genre, a cover(useless).
+	 	
+	 - commentaries table :
+	 	composed of 2 foreign keys, one for the posting user, the other for the corresponding manga, a text, a date and a note.
+	 	
+	 - users table :
+	 composed of an active/admin status, a name, a surname, pseudonyme, course, year, different dates, the email, the encrypted password, the current and last ip used by the account, the confirmation token and 3 string types corresponding to the borrows made by the account.
+
+=============== The app :
+	
+	Once the app is launched, go in your internet browser and enter the URL : http://localhost:3000
+	This will bring you to the home page of the site.
+	
+	On the home page, you can either browse through the site and see its contents, or you can create an account by clcking the 'S'inscrire' button.
+	
+	The 'Home' button will bring you back to the home page (it is not completely finished, a few adjustments are necessary).
+	
+	The 'Liste de Manga' button will lead you to the list of all available series with links to their dedicated pages.
+	
+	The 'Random' button will randomly lead you to one of the series (it might lead to an error on some very few occurences : the server looks for a manga with id=0 which does not exist).
+	
+	When you're connected, you will see a 'Sign_out' button as well as a 'Profil' button.
+	
+	The 'Sign_out' button will disconnect you.
+	On the profil page you can see a recap of your informations (not all the information displayed is currently available to the users)
+	
+	If you're an admin, you will also see a 'Utilisateurs' button which will lead you to the list of all users with their base informations (as well as a button to delete an account in the long term).
+	
+	All users are able to borrow a manga, if it is available (feature not entirely operationnal : in development).
+	
+================ Registration
+	
+	If you so wish, you can create an account by clicking on 'S'inscrire'. You will be then asked to provide an email address and a password. Once created, you should receive an email in your mail box signaling you that your account has been created and asking you to confirm the creation by clicking on a link. If you don't confirm your account creation, you will have access to the site only during 2 days.
+	
+================ Becoming an administrator
+
+	If you have access to the source code of the app, on the console type 'rails console' to have access to the database. There type the following 2 commands to become administrator :
+	u = User.find_by_email("mymailaddress@example.com")
+	u.update_attributes(admin: true)
+	
+	The account associated with the address "mymailaddress@example.com" will then be an admin.
+	
+	(On the long term, administrators will be able to grant admin rights to non-admin accounts directly from the site).

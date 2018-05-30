@@ -1,0 +1,3 @@
+<td <%= sort_td_class_helper "name" %>>
+  <%= sort_link_helper "Nom", "name" %>
+</td>

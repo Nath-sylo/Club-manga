@@ -1,0 +1,40 @@
+  [1m[36m (309.2ms)[0m  [1mDROP DATABASE IF EXISTS "manga_test"[0m
+  [1m[35m (1312.3ms)[0m  CREATE DATABASE "manga_test" ENCODING = 'unicode'
+  [1m[36mSQL (0.2ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (423.1ms)[0m  CREATE TABLE "commentaries" ("id" serial primary key, "user_id" integer, "ouvrage_id" integer, "texte" text, "date" timestamp, "note" float, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (100.9ms)[0m  [1mCREATE  INDEX  "index_commentaries_on_ouvrage_id" ON "commentaries" USING btree ("ouvrage_id")[0m
+  [1m[35m (81.3ms)[0m  CREATE  INDEX  "index_commentaries_on_user_id" ON "commentaries" USING btree ("user_id")
+  [1m[36m (157.0ms)[0m  [1mCREATE TABLE "ouvrages" ("id" serial primary key, "title" character varying, "synopsis" text, "begin" integer, "final" integer, "missing_tome" character varying, "complete" integer, "author" character varying, "editor" character varying, "release_date" integer, "genre" text, "cover" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (115.5ms)[0m  CREATE TABLE "users" ("id" serial primary key, "active" integer, "current_borrows" integer DEFAULT 0, "name" character varying, "surname" character varying, "pseudo" character varying, "course" character varying, "year" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" timestamp, "last_sign_in_at" timestamp, "current_sign_in_ip" inet, "last_sign_in_ip" inet, "confirmation_token" character varying, "confirmed_at" timestamp, "confirmation_sent_at" timestamp, "admin" boolean DEFAULT 'f', "borrow1" character varying DEFAULT '', "borrow2" character varying DEFAULT '', "borrow3" character varying DEFAULT '') 
+  [1m[36m (72.8ms)[0m  [1mCREATE UNIQUE INDEX  "index_users_on_email" ON "users" USING btree ("email")[0m
+  [1m[35m (72.9ms)[0m  CREATE UNIQUE INDEX  "index_users_on_reset_password_token" ON "users" USING btree ("reset_password_token")
+  [1m[36m (7.8ms)[0m  [1mALTER TABLE "commentaries" ADD CONSTRAINT "fk_rails_8c73efa960"
+FOREIGN KEY ("ouvrage_id")
+  REFERENCES "ouvrages" ("id")
+[0m
+  [1m[35m (7.3ms)[0m  ALTER TABLE "commentaries" ADD CONSTRAINT "fk_rails_d86c3fe108"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+
+  [1m[36m (72.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (72.0ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36m (0.4ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (7.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160520123646')
+  [1m[36m (7.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160427151218')[0m
+  [1m[35m (8.2ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160519163937')
+  [1m[36m (8.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160427151038')[0m
+  [1m[35m (8.2ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160518155644')
+  [1m[36m (8.2ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160427150633')[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "ouvrages" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "commentaries" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "ouvrages" DISABLE TRIGGER USER;ALTER TABLE "users" DISABLE TRIGGER USER;ALTER TABLE "commentaries" DISABLE TRIGGER USER;ALTER TABLE "schema_migrations" DISABLE TRIGGER USER[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  ALTER TABLE "ouvrages" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "commentaries" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "ouvrages" ENABLE TRIGGER USER;ALTER TABLE "users" ENABLE TRIGGER USER;ALTER TABLE "commentaries" ENABLE TRIGGER USER;ALTER TABLE "schema_migrations" ENABLE TRIGGER USER[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "ouvrages" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "commentaries" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "ouvrages" DISABLE TRIGGER USER;ALTER TABLE "users" DISABLE TRIGGER USER;ALTER TABLE "commentaries" DISABLE TRIGGER USER;ALTER TABLE "schema_migrations" DISABLE TRIGGER USER[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  ALTER TABLE "ouvrages" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "commentaries" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "ouvrages" ENABLE TRIGGER USER;ALTER TABLE "users" ENABLE TRIGGER USER;ALTER TABLE "commentaries" ENABLE TRIGGER USER;ALTER TABLE "schema_migrations" ENABLE TRIGGER USER[0m

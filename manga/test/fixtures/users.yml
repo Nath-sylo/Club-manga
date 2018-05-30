@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  administrator: 1
+  active: 1
+  current_borrows: 1
+  name: MyString
+  surname: MyString
+  mail: MyString
+  pseudo: MyString
+  course: MyString
+  year: 1
+  password: MyString
+
+two:
+  administrator: 1
+  active: 1
+  current_borrows: 1
+  name: MyString
+  surname: MyString
+  mail: MyString
+  pseudo: MyString
+  course: MyString
+  year: 1
+  password: MyString

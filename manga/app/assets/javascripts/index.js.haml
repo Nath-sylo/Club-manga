@@ -1,0 +1,11 @@
+$( document ).ready(function() {
+	$("#title").on("click", function(){
+		$("- @ouvrages = Ouvrage.paginate(:page => params[:page], per_page: 5)").append(".order(:title)")
+	})
+});
+
+$( document ).ready(function() {
+	$("#genre").on("click", function(){
+		$("@ouvrages = Ouvrage.paginate(:page => params[:page], per_page: 5)").append("order(:genre)")
+	})
+});

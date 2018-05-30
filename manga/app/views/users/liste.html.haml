@@ -1,0 +1,63 @@
+-if current_user.try(:admin?)
+
+	.row
+		.col-xs-9-
+			.panel-title
+				.h2 Liste d'inscrits
+
+		
+		%table.table.cadre
+			%thead
+
+				%td
+					= sort_link_helper_list "Email", "email"
+				%td
+					= sort_link_helper_list "Pseudo", "pseudo"
+				%td
+					= sort_link_helper_list "Nom", "surname"
+				%td
+					= sort_link_helper_list "Prénom", "name"
+				%td
+					= sort_link_helper_list "Emprunts", "current_borrows"
+				%td
+					= sort_link_helper_list "Filière", "course"
+				%td
+					= sort_link_helper_list "Promotion", "year"
+				%td
+					= sort_link_helper_list "Admin?", "admin"
+				%td
+					= sort_link_helper_list "Dernière Connexion", "last_sign_in_at"
+
+
+			%tbody
+				- @users.each do|user|
+					%tr
+						%td
+							= user.email
+						%td
+							= user.pseudo
+						%td
+							= user.surname
+						%td
+							= user.name
+						%td
+							- if user.borrow1 != ""
+								.li
+									= user.borrow1
+							- if user.borrow2 != ""
+								.li
+									= user.borrow2
+							- if user.borrow3 != ""
+								.li
+									= user.borrow3
+						%td
+							= user.course
+						%td
+							= user.year
+						%td
+							- if user.try(:admin?)
+								Oui
+							- else
+								Non
+						%td
+							=user.last_sign_in_at
